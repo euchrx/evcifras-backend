@@ -5,8 +5,6 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { AppModule } from './app.module';
 
-const LOCAL_IP = '192.168.68.52';
-
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
@@ -14,10 +12,10 @@ async function bootstrap() {
     origin: [
       'http://localhost:5173',
       'http://127.0.0.1:5173',
-      `http://${LOCAL_IP}:5173`,
+      `http://192.168.68.52:5173`,
       'http://localhost:4173',
       'http://127.0.0.1:4173',
-      `http://${LOCAL_IP}:4173`,
+      `http://192.168.68.52:4173`,
       'https://evcifras-frontend.vercel.app'
     ],
     credentials: true,
@@ -47,9 +45,6 @@ async function bootstrap() {
   const port = configService.get<number>('PORT') || 3000;
 
   await app.listen(port, '0.0.0.0');
-
-  console.log(`Backend local: http://localhost:${port}`);
-  console.log(`Backend rede: http://${LOCAL_IP}:${port}`);
 }
 
 bootstrap();  
